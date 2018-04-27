@@ -2,8 +2,8 @@ class IndiceRemissivo(object):
 
 	# Construtor
 	def __init__(self):
-		self._indice = {};		# dicionário que guarda as palavras e suas ocorrências
-		self._palavras = [];	# cache das palavras já computadas
+		self._indice = {};						# dicionário que guarda as palavras e suas ocorrências
+		self._palavras = self._indice.keys();	# cache das palavras já computadas
 
 	# Computa uma palavra no índice
 	def contaPalavra(self, palavra):
@@ -14,7 +14,6 @@ class IndiceRemissivo(object):
 			self._indice[palavra] += 1;
 		else:
 			self._indice[palavra] = 1;
-			self._palavras = self._indice.keys();
 
 	# Recebe um array de palavras para computar
 	def contaPalavras(self, palavras):
@@ -40,3 +39,4 @@ class IndiceRemissivo(object):
 	# Limpa índice
 	def reset(self):
 		self._indice = {};
+		self._palavras = [];
