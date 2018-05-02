@@ -17,9 +17,6 @@ NUMERO = 2;
 CVC = 3;
 VALIDADE = 4;
 
-PREFIXO = "prefixo";
-TAMANHO = "tamanho";
-
 # funções
 
 def checarContatosDuplicados(clientes):
@@ -80,13 +77,9 @@ def validarCartoes(cartoes):
 	for cartao in cartoes.toArray():
 		valido = False;
 		for bandeira in bandeiras:
-			print(bandeira["nome"]);
 			cvc = len(cartao.cvc) == bandeira["cvc"];
-			print("cvc: %s"% str(cvc))
 			tamanho = len(cartao.numero) in bandeira["tamanho"];
-			print("tamanho: %s"% str(tamanho))
 			validade = datetime.date.today() < cartao._validade;
-			print("validade: %s"% str(validade))
 			prefixo = False;
 
 			for n in bandeira["prefixo"]:
@@ -95,11 +88,9 @@ def validarCartoes(cartoes):
 					break;
 				#
 			#
-			print("prefixo: %s"% str(prefixo))
-
+			
 			if(cvc & tamanho & prefixo & validade):
 				valido = True;
-				print("cartao %s match na bandeira %s" % (cartao.id, bandeira["nome"]));
 				break;
 			#
 		#
