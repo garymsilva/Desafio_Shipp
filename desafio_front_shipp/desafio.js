@@ -2,7 +2,6 @@
     "use strict";
     
     let update = new Event("update"); // evento custom usado para atualizar a info
-    let THINGS_COUNTER = 1;
 
     var getRandomColor = () => {
         const hexa = "0123456789ABCDEF";
@@ -41,33 +40,28 @@
         return node;
     }
 
-    var updateInfo = () => {
-        let text = document.createTextNode(`A piscina contém ${THINGS_COUNTER} coisas.`);
-        info.replaceChild(text, info.firstChild);
-    }
-
     // ponteiros para os elementos
     let info = document.getElementById("info");
     let addButton = document.getElementsByClassName("action-add")[0];
     let removeAllButton = document.getElementsByClassName("action-remove")[0];
     let pool = document.getElementById("pool");
 
-    // remover texto residual contado como nó
-    pool.firstChild.remove();
+    pool.firstChild.remove(); // remover texto residual contado como nó
     pool.lastChild.remove();
-
-    // replace no thing que já existe
-    pool.replaceChild(createThing(),pool.firstChild);
+    pool.replaceChild(createThing(),pool.firstChild); // replace no thing que já existe
+    
+    // LISTENERS
+    SEA.addEventListener(info, "update", () => {
+        let text = document.createTextNode(`A piscina contém ${pool.childElementCount} coisas.`);
+        info.replaceChild(text, info.firstChild);
+    });
 
     // start no texto da info
-    updateInfo(info);
-    
-    SEA.addEventListener(info, "update", () => updateInfo(info));
+    info.dispatchEvent(update);
 
     SEA.addEventListener(addButton, "click", () => {
         let newChild = createThing();
         pool.appendChild(newChild);
-        THINGS_COUNTER++;
         info.dispatchEvent(update);
     });
 
